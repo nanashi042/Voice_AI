@@ -2,7 +2,7 @@
 <html>
 <head>
     <title>Text-to-Speech Converter</title>
-    <link rel="stylesheet" href="{{url_for('static', filename='css/style.css')}}">
+    <link rel="stylesheet" href="{{url_for('static',filename='css/style.css')}}">
 </head>
 <body>
     <h1>Text-to-Speech Converter</h1>
@@ -22,29 +22,25 @@
     </form>
     {% if audio %}
     <br>
-    <form action="{{ url_for('download') }}" method="get" id="download_form">
-        <button type="submit" id='download_btn'>Download Audio</button>
+    <!-- <div>
+        <audio controls>
+            <source src="{{ url_for('static', filename='audio/voice.mp3') }}" type="audio/mpeg">
+            Your browser does not support the audio element.
+        </audio>
+    </div> -->
+    <br>
+    <form action="{{ url_for('download_audio') }}" method="get">
+        <button type="submit">Download Audio</button>
     </form>
     {% endif %}
     {% if error %}
     <p class="alert">Please enter some text.</p>
     {% endif %}
 
-    <audio id="voice-preview" style="display: none;"></audio>
-
     <script>
         function showAlert() {
             alert("Your audio is ready! Click the 'Download Audio' button to download.");
         }
-
-        document.getElementById("voice").addEventListener("change", function () {
-            var selectedVoice = this.value;
-            var audioElement = document.getElementById("voice-preview");
-            var audioFileName = selectedVoice + ".mp3";
-            audioElement.src = audioFileName;
-            audioElement.currentTime = 0;
-            audioElement.play();
-        });
     </script>
 </body>
 </html>

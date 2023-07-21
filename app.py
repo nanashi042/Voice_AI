@@ -1,6 +1,9 @@
 import os
 import pygame
-from flask import Flask, render_template, request, send_file 
+import shutil
+import tkinter as tk
+from tkinter import filedialog, messagebox
+from flask import Flask, render_template, request, send_file
 
 app = Flask(__name__)
 
@@ -49,29 +52,48 @@ voices = {
     'en-US-RogerNeural': 'en-US Roger',
 }
 
-def generate_audio(data, voice):
-    command = f'edge-tts --voice "{voice}" --text "{data}" --write-media "static/voice.mp3"'
+
+def speak(data, voice):
+    command = f'edge-tts --voice "{voice}" --text "{data}" --write-media "static/audio/voice.mp3"'
     os.system(command)
 
+    pygame.init()
+    pygame.mixer.init()
+    pygame.mixer.music.load("static/audio/voice.mp3")
+
+    try:
+        # pygame.mixer.music.play()
+        
+
+        while pygame.mixer.music.get_busy():
+            pygame.time.Clock().tick(10)
+
+        pygame.mixer.music.save("static/audio/voice.mp3")  # Save the audio as an MP3 file
+
+    except Exception as e:
+        print(e)
+    finally:
+        pygame.mixer.music.stop()
+        pygame.mixer.quit()
+
 @app.route('/', methods=['GET', 'POST'])
-def index():
+def text_to_speech():
+    audio = None
+    error = False
     if request.method == 'POST':
         data = request.form['text']
-        voice = request.form['voice']
-        if data.strip() != "":
-            generate_audio(data, voice)
-            return render_template('index.html', voices=voices, audio=True)
+        if data.strip() == "":
+            error = True
         else:
-            return render_template('index.html', voices=voices, error=True)
-    else:
-        return render_template('index.html', voices=voices)
+            selected_voice = request.form['voice']
+            speak(data, selected_voice)
+            audio = "static/audio/voice.mp3"
 
-@app.route('/download', methods=['GET'])
-def download():
-    try:
-        return send_file('static/voice.mp3', as_attachment=True)
-    except Exception as e:
-        return str(e)
+    return render_template('index.html', audio=audio, error=error, voices=voices)
 
-if __name__ == '__main__':
-    app.run(debug=True, host="0.0.0.0")
+@app.route('/download')
+def download_audio():
+    return send_file("static/audio/voice.mp3", as_attachment=True)
+
+if __name__ == "__main__":
+    app.run(debug=True)
