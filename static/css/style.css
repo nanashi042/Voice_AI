@@ -1,0 +1,121 @@
+body {
+    font-family: Arial, sans-serif;
+    background-image: url(https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwallpapers.com%2Fimages%2Fhd%2F4k-aesthetic-anime-a-silent-voice-qd4ytudgcxbxzab2.jpg&f=1&nofb=1&ipt=af21b5ae4e3cc80ac37e171169e20cb6e69c3d6b9a52d680c9725928d6dd8add&ipo=images);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    margin: 0;
+    padding: 0;
+    width: 100vw;
+    height: 100vh;
+}
+
+h1 {
+    text-align: center;
+    margin-top: 50px;
+    color: #fff;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+form {
+    text-align: center;
+    margin-top: 30px;
+    padding: 47px;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+    background-color: #fff;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    color: #555;
+}
+
+textarea {
+    width: 100%;
+    height: 120px;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    resize: none;
+}
+
+select {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+button {
+    background-color: #007BFF;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+.alert {
+    text-align: center;
+    color: #007BFF;
+    margin-top: 15px;
+    font-weight: bold;
+    animation: fadeIn 1s ease-in-out;
+}
+
+@media screen and (max-width: 1000px) {
+    body {
+        background-color: rgba(0, 0, 0, 0.8);
+        background-image: url(https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwallpapercave.com%2Fwp%2Fwp8894705.jpg&f=1&nofb=1&ipt=7af575d712a934d686ae1ecc730d4bf71acede4c9167e0b1748a7ad75018db01&ipo=images);
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        width: 100vw;
+        height: 100vh;
+    }
+
+    h1 {
+        font-size: 24px;
+    }
+
+    form {
+        padding: 10px;
+        height: 48vh;
+    }
+
+    textarea {
+        height: 30vh;
+        padding: 0px;
+    }
+
+    button {
+        font-size: 16px;
+        width: 80vw;
+    }
+    select {
+        width: 100%;
+        padding: 8px;
+        margin-bottom: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        height: 5vh;
+    }
+    #download_btn{
+        margin-top: 3vh;
+    }
+    #download_form{
+        padding: 10px;
+        height: 6vh;
+    }
+}

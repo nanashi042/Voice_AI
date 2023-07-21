@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Text-to-Speech Converter</title>
+    <link rel="stylesheet" href="{{url_for('static', filename='css/style.css')}}">
+</head>
+<body>
+    <h1>Text-to-Speech Converter</h1>
+    <form action="/" method="post">
+        <label for="text">Enter the text:</label>
+        <br>
+        <textarea id="text" name="text" rows="4" cols="50" required>{{ request.form['text'] }}</textarea>
+        <br>
+        <label for="voice">Select a voice:</label>
+        <select id="voice" name="voice">
+            {% for key, value in voices.items() %}
+                <option value="{{ key }}" {% if request.form['voice'] == key %}selected{% endif %}>{{ value }}</option>
+            {% endfor %}
+        </select>
+        <br>
+        <button type="submit" onclick="showAlert()">Generate</button>
+    </form>
+    {% if audio %}
+    <br>
+    <form action="{{ url_for('download') }}" method="get" id="download_form">
+        <button type="submit" id='download_btn'>Download Audio</button>
+    </form>
+    {% endif %}
+    {% if error %}
+    <p class="alert">Please enter some text.</p>
+    {% endif %}
+
+    <audio id="voice-preview" style="display: none;"></audio>
+
+    <script>
+        function showAlert() {
+            alert("Your audio is ready! Click the 'Download Audio' button to download.");
+        }
+
+        document.getElementById("voice").addEventListener("change", function () {
+            var selectedVoice = this.value;
+            var audioElement = document.getElementById("voice-preview");
+            var audioFileName = selectedVoice + ".mp3";
+            audioElement.src = audioFileName;
+            audioElement.currentTime = 0;
+            audioElement.play();
+        });
+    </script>
+</body>
+</html>
